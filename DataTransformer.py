@@ -68,4 +68,4 @@ def update_frequency():
 
 
 create_project_dir()
-transform_data_from_folder('crawled_pages', 10)
+transform_data_from_folder(args.FolderName, args.NumFilesToProcess)

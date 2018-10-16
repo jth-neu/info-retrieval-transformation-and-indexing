@@ -1,4 +1,10 @@
 import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("FolderName", help="The input folder")
+parser.add_argument("NumFilesToProcess", help='The number of files for processing', type=int)
+args = parser.parse_args()
 
 
 # Create a directory to store all the output
