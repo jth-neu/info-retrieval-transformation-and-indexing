@@ -4,7 +4,11 @@ from Utils import *
 termId = 0
 term_termId_dict = {}
 termId_frequency_dict = {}
-terms = {}
+current_terms = {}
+docId_docName_dict = {}
+docId_docLength_dict = {}
+docId_tokens_dict = {}
+terms = set()
 
 
 def transform_data_from_folder(folder_name, number_of_files):
@@ -28,8 +32,9 @@ def transform_data(filename):
         data = re.sub(r'<[^>]*?>', ' ', data)  # Remove html tags
         text = re.sub(r'[^\w\s]', ' ', data)  # Remove all punctuations
         tokens = text.split()
-        global terms
-        terms = set(tokens)
+        global current_terms, terms
+        current_terms = set(tokens)
+        terms.update(tokens)
         return tokens
 
 
@@ -48,10 +53,13 @@ def save_tokens_to_file(tokens, filename, file_count):
     file = os.path.join(os.getcwd(), 'tokens/' + str(file_count) + '-' + filename)
     if not os.path.isfile(file):
         write_tokens_to_file(file, tokens)
+        docId_docName_dict[file_count] = filename.replace('.txt', '')
+        docId_docLength_dict[file_count] = len(tokens)
+        docId_tokens_dict[file_count] = tokens
 
 
 def update_frequency():
-    for term in terms:
+    for term in current_terms:
         term_id = term_termId_dict[term]
         if term_id not in termId_frequency_dict:
             termId_frequency_dict[term_id] = 1
