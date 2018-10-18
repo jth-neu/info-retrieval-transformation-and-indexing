@@ -9,6 +9,8 @@ docId_docName_dict = {}
 docId_docLength_dict = {}
 docId_tokens_dict = {}
 terms = set()
+total_size = 0
+total_token_number = 0
 
 
 def transform_data_from_folder(folder_name, number_of_files):
@@ -17,9 +19,15 @@ def transform_data_from_folder(folder_name, number_of_files):
         file_count += 1
         if file_count > number_of_files:
             break
-        tokens = transform_data(os.path.join(os.getcwd(), folder_name + '/' + filename))
+        path = os.path.join(os.getcwd(), folder_name + '/' + filename)
+        tokens = transform_data(path)
         save_tokens_to_file(tokens, filename, file_count)
         update_frequency()
+
+        # stats
+        global total_size, total_token_number
+        total_size += os.path.getsize(path)
+        total_token_number += len(tokens)
 
 
 def transform_data(filename):

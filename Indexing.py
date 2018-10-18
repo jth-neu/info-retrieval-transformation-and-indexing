@@ -36,6 +36,26 @@ def save_inverted_index():
         json.dump(inverted_index, index_file)
 
 
+def save_stats():
+    file = os.path.join(os.getcwd(), 'stats.txt')
+    index_file_size = get_index_files_size()
+    with open(file, 'w') as stats_file:
+        stats_file.write('Total size of all input files: ' + str(DataTransformer.total_size) + ' bytes. \n')
+        stats_file.write('Total number of tokens: ' + str(DataTransformer.total_token_number) + ' \n')
+        stats_file.write('Total number of unique tokens: ' + str(len(DataTransformer.terms)) + ' \n')
+        stats_file.write('Total size of three index files: ' + str(index_file_size) + ' bytes. \n')
+        stats_file.write('Ratio of index size to total size: ' +
+                         str(index_file_size/DataTransformer.total_size) + ' \n')
+
+
+def get_index_files_size():
+    size = 0
+    for filename in os.listdir(os.path.join(os.getcwd(), 'output')):
+        path = os.path.join(os.getcwd(), 'output/' + filename)
+        size += os.path.getsize(path)
+    return size
+
 save_term_id_file()
 save_doc_id_file()
 save_inverted_index()
+save_stats()
