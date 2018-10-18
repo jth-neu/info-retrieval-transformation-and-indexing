@@ -32,6 +32,7 @@ def transform_data_from_folder(folder_name, number_of_files):
 
 def transform_data(filename):
     with open(filename, 'r') as f:
+        print('Now processing : ' + filename)
         data = f.read()
         data = data.replace('.', '')   # Remove periods
         data = re.sub(r'<(head).*?</\1>(?s)', '', data)  # Remove head section from html
