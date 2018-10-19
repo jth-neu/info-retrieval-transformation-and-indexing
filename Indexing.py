@@ -6,12 +6,14 @@ inverted_index = {}
 
 
 def save_term_id_file():
+    print('Now creating TermIDFile.')
     file = os.path.join(os.getcwd(), 'output/' + 'TermIDFile.txt')
     with open(file, 'w') as termIDFile:
         json.dump([DataTransformer.term_termId_dict, DataTransformer.termId_frequency_dict], termIDFile)
 
 
 def save_doc_id_file():
+    print('Now creating DocumentIDFile.')
     file = os.path.join(os.getcwd(), 'output/' + 'DocumentIDFile.txt')
     with open(file, 'w') as documentIDFile:
         json.dump([DataTransformer.docId_docName_dict, DataTransformer.docId_docLength_dict], documentIDFile)
@@ -30,6 +32,7 @@ def create_inverted_index():
 
 
 def save_inverted_index():
+    print('Now creating InvertedIndex.')
     create_inverted_index()
     file = os.path.join(os.getcwd(), 'output/' + 'InvertedIndex.txt')
     with open(file, 'w') as index_file:
@@ -37,6 +40,7 @@ def save_inverted_index():
 
 
 def save_stats():
+    print('Now creating stats file.')
     file = os.path.join(os.getcwd(), 'stats.txt')
     index_file_size = get_index_files_size()
     with open(file, 'w') as stats_file:
